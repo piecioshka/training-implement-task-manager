@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "training-implement-task-manager",
+    "description": "Task, which learn you how to write code which should pass the unit tests.",
+    "version": "1.0.0",
+    "license": "MIT",
+    "author": {
+        "name": "Piotr Kowalski",
+        "email": "piecioshka@gmail.com",
+        "url": "https://piecioshka.pl/"
+    },
+    "scripts": {},
+    "dependencies": {},
+    "devDependencies": {},
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:piecioshka/training-implement-task-manager.git"
+    }
+}

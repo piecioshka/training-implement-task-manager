@@ -7,7 +7,7 @@
 I've written some unit tests to describe sample production code.<br/>
 Your mission is to **complete the implementation** by completing a code file.
 
-## How to complete thr task?
+## How to complete the task?
 
 1. **Clone**
 

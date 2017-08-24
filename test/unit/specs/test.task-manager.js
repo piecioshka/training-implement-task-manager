@@ -28,11 +28,11 @@ QUnit.module('TaskManager', function () {
             assert.ok(TaskManager);
         });
 
-        QUnit.test('should be function', function (assert) {
+        QUnit.test('should be a function', function (assert) {
             assert.strictEqual(typeof TaskManager, 'function');
         });
 
-        QUnit.test('should be a constructor (not arrow function)', function (assert) {
+        QUnit.test('should be a constructor (not an arrow function)', function (assert) {
             try {
                 new TaskManager();
                 assert.ok(true);
@@ -47,19 +47,19 @@ QUnit.module('TaskManager', function () {
             this.tasks = new TaskManager();
         });
 
-        QUnit.test('should have function: getList', function (assert) {
+        QUnit.test('should have a function: getList', function (assert) {
             assert.strictEqual(typeof this.tasks.getList, 'function');
         });
 
-        QUnit.test('should return array', function (assert) {
+        QUnit.test('should return an array', function (assert) {
             assert.strictEqual(toString(this.tasks.getList()), '[object Array]');
         });
 
-        QUnit.test('should have function: addTask', function (assert) {
+        QUnit.test('should have a function: addTask', function (assert) {
             assert.strictEqual(typeof this.tasks.addTask, 'function');
         });
 
-        QUnit.test('should have function: run', function (assert) {
+        QUnit.test('should have a function: run', function (assert) {
             assert.strictEqual(typeof this.tasks.run, 'function');
         });
     });
@@ -68,13 +68,13 @@ QUnit.module('TaskManager', function () {
         hooks.beforeEach(function () {
             this.fake = {
                 bar: function () {
-                    this.step('Function from first task executed');
+                    this.step('the function from the first task has executed');
                 },
                 baz: function () {
-                    this.step('Function from second task executed');
+                    this.step('the function from the second task has executed');
                 },
                 qux: function () {
-                    this.step('Function from third task executed');
+                    this.step('the function from the third task has executed');
                 }
             };
 
@@ -85,43 +85,43 @@ QUnit.module('TaskManager', function () {
             assert.strictEqual(this.tasks.getList().length, 0);
         });
 
-        QUnit.test('new instance of TaskManager should have empty queue', function (assert) {
+        QUnit.test('the new instance of TaskManager should have an empty queue', function (assert) {
             assert.strictEqual(this.tasks.getList().length, 0);
         });
 
-        QUnit.test('"addTask" method should append list of tasks', function (assert) {
+        QUnit.test('the "addTask" method should append items to the list of tasks', function (assert) {
             let queue = this.tasks.getList();
             let mockName = 'example-name';
             let mockFunction = function () {
             };
             let mockContext = this;
 
-            assert.strictEqual(queue.length, 0, 'Initially list of task is empty');
+            assert.strictEqual(queue.length, 0, 'the initial list of task is empty');
 
             this.tasks.addTask(mockName, mockFunction, mockContext);
 
-            assert.strictEqual(queue.length, 1, 'After added task to empty list, list should contain one task');
+            assert.strictEqual(queue.length, 1, 'after adding a task to the empty list, the list should contain one task');
 
-            assert.strictEqual(typeof queue[0].name, 'string', 'First element should have string property "name"');
-            assert.strictEqual(queue[0].name, mockName, 'Property "name" should be first parameter of function "addTask"');
+            assert.strictEqual(typeof queue[0].name, 'string', 'First element should have a string property called "name"');
+            assert.strictEqual(queue[0].name, mockName, 'property "name" should be the first parameter of the "addTask" function');
 
-            assert.strictEqual(typeof queue[0].callback, 'function', 'First element should have function property "callback"');
-            assert.strictEqual(queue[0].callback, mockFunction, 'Property "callback" should be second parameter of function "addTask"');
+            assert.strictEqual(typeof queue[0].callback, 'function', 'the first element should have a function property named "callback"');
+            assert.strictEqual(queue[0].callback, mockFunction, 'the property "callback" should be the second parameter of the "addTask" function');
 
-            assert.strictEqual(typeof queue[0].context, 'object', 'First element should have object property "context"');
-            assert.strictEqual(queue[0].context, mockContext, 'Property "context" should be third parameter of function "addTask"');
+            assert.strictEqual(typeof queue[0].context, 'object', 'First element should have an object property named "context"');
+            assert.strictEqual(queue[0].context, mockContext, 'the property "context" should be the third parameter of the "addTask" function');
         });
 
-        QUnit.test('callback should be execute when I call function "run"', function (assert) {
+        QUnit.test('the callback for the first task should be executed when the "run" function is called', function (assert) {
             this.tasks.addTask('task 1', this.fake.bar.bind(assert));
             this.tasks.run();
 
             assert.verifySteps([
-                'Function from first task executed'
+                'the function from the first task has executed'
             ]);
         });
 
-        QUnit.test('callback from all functions should be executed when I call function "run"', function (assert) {
+        QUnit.test('each task item should have its callback executed via the "run" function', function (assert) {
             this.tasks.addTask('task 2', this.fake.bar.bind(assert));
             this.tasks.addTask('task 3', this.fake.baz.bind(assert));
             this.tasks.addTask('task 4', this.fake.qux.bind(assert));
@@ -129,16 +129,16 @@ QUnit.module('TaskManager', function () {
             this.tasks.run();
 
             assert.verifySteps([
-                'Function from first task executed',
-                'Function from second task executed',
-                'Function from third task executed'
+                'the function from the first task executed',
+                'the function from the second task executed',
+                'the function from the third task executed'
             ]);
         });
 
-        QUnit.test('should run with passed context', function (assert) {
+        QUnit.test('should run with the context that was passed', function (assert) {
             let fake = this.fake;
             this.tasks.addTask('task 5', function () {
-                assert.strictEqual(this, fake, 'Context of executed callback should be equal object which was passed to "add" function');
+                assert.strictEqual(this, fake, 'the context of the executed callback should be equal to the object which was passed through the "add" function');
             }, fake);
 
             this.tasks.run();

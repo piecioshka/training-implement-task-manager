@@ -1,13 +1,13 @@
 # training-implement-task-manager
 
-> ♨️ Task, which learn you how to write code which should pass the unit tests.
+> ♨️ Exercise through which you learn how to write code by passing unit tests.
 
-## What it going on?
+## What's going on?
 
-I've write some unit test to describe some production code.<br/>
-Your mission is to **fill implementation** into application file.
+I've written some unit tests to describe sample production code.<br/>
+Your mission is to **complete the implementation** by completing a code file.
 
-## How to complete task?
+## How to complete the task?
 
 1. **Clone**
 
@@ -17,15 +17,15 @@ Your mission is to **fill implementation** into application file.
 
 2. **Open**
 
-    Open in browser `index.html` file.
+    Open the `index.html` file in the browser.
 
 3. **Implement**
 
-    Put some code to file `app/scripts/task-manager.js`. **Cover all unit tests.**
+    Put your code in the `app/scripts/task-manager.js` file. **You must cover all unit tests.**
 
 4. **Verify**
 
-    Complete the mission when **all unit test passing** :tada:
+    The mission is complete when **all unit tests are passing** :tada:
 
 ## License
 

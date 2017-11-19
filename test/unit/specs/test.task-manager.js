@@ -129,9 +129,9 @@ QUnit.module('TaskManager', function () {
             this.tasks.run();
 
             assert.verifySteps([
-                'the function from the first task executed',
-                'the function from the second task executed',
-                'the function from the third task executed'
+                'the function from the first task has executed',
+                'the function from the second task has executed',
+                'the function from the third task has executed'
             ]);
         });
 

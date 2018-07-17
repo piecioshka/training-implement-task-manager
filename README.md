@@ -4,28 +4,29 @@
 
 ## What's going on?
 
-I've written some unit tests to describe sample production code.<br/>
-Your mission is to **complete the implementation** by completing a code file.
+I've written some __unit tests__ to describe sample production code.<br/>
+Your mission is to **complete the implementation** by writing a code in `app/`.
 
 ## How to complete the task?
 
-1. **Clone**
+### 1. **Clone** :busts_in_silhouette:
 
-    ```
-    git clone git@github.com:piecioshka/training-implement-task-manager.git
-    ```
+```bash
+git clone git@github.com:piecioshka/training-implement-task-manager.git
+```
 
-2. **Open**
+### 2. **Open** :hammer:
 
-    Open the `index.html` file in the browser.
+Open the `index.html` file in the browser and __refresh__ after wrote some code.
 
-3. **Implement**
+### 3. **Implement** :construction:
 
-    Put your code in the `app/scripts/task-manager.js` file. **You must cover all unit tests.**
+Open the `app/scripts/task-manager.js` file in the editor.<br/>
+Write that code which cover each of test cases. 
 
-4. **Verify**
+:warning: **You must cover all unit tests** :warning: 
 
-    The mission is complete when **all unit tests are passing** :tada:
+The mission is complete when **all unit tests are passing** :tada:
 
 ## License
 

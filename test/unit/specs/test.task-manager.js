@@ -59,7 +59,7 @@ QUnit.module('TaskManager', function () {
                 assert.strictEqual(
                     typeof this.tasks.getList,
                     'function',
-                    'We create object using your TaskManager constructor. Now that object should have "getList" function. Maybe you can add thad function to "prototype"?'
+                    'We create object using your TaskManager constructor. Now that object should have "getList" function. Maybe you can add that function to "prototype"?'
                 );
             });
 
@@ -113,13 +113,13 @@ QUnit.module('TaskManager', function () {
         hooks.beforeEach(function () {
             this.fake = {
                 bar: function () {
-                    this.step('the function from the first task has executed');
+                    this.step('the function from the first task have been executed');
                 },
                 baz: function () {
-                    this.step('the function from the second task has executed');
+                    this.step('the function from the second task have been executed');
                 },
                 qux: function () {
-                    this.step('the function from the third task has executed');
+                    this.step('the function from the third task have been executed');
                 }
             };
 
@@ -187,7 +187,7 @@ QUnit.module('TaskManager', function () {
 
             assert.verifySteps(
                 [
-                    'the function from the first task has executed'
+                    'the function from the first task have been executed'
                 ],
                 'Method "run" should execute all callback\'s in loop (ex. forEach).'
             );
@@ -201,9 +201,9 @@ QUnit.module('TaskManager', function () {
             this.tasks.run();
 
             assert.verifySteps([
-                'the function from the first task has executed',
-                'the function from the second task has executed',
-                'the function from the third task has executed'
+                'the function from the first task have been executed',
+                'the function from the second task have been executed',
+                'the function from the third task have been executed'
             ]);
         });
 

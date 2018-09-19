@@ -1,0 +1,20 @@
+#qunit {
+    position: relative;
+    padding: 25px 0 0 0;
+}
+
+#qunit-testresult {
+    right: 0;
+    top: 5px;
+}
+
+#qunit-testrunner-toolbar {
+    right: 0;
+    top: 30px;
+}
+
+#qunit-modulefilter,
+.qunit-filter,
+#qunit-testresult-controls {
+    display: none;
+}

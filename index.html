@@ -4,13 +4,34 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width"/>
     <title>Training: Implement TaskManager</title>
-    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.6.1.css"/>
+
+    <!-- <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.6.1.css"/> -->
+    <link rel="stylesheet" href="vendors/qunit/theme/ninja/qunit-theme-ninja.css"/>
+    <link rel="stylesheet" href="vendors/qunit/theme/ninja/custom.css"/>
+    <!-- <link rel="stylesheet" href="https://krinkle.github.io/qunit-theme-ninja/qunit-theme-ninja.css"/> -->
+    <link rel="stylesheet" href="vendors/prism/prism.css"/>
+    <script src="vendors/prism/prism.js"></script>
 </head>
 <body>
+    <h1>Usage</h1>
+    <small>If below code will work, your job is done.</small>
+    <pre class="language-javascript">
+        <code>
+            const queue = new TaskManager();
+            queue.addTask('first task', function () {
+                this.alert('bleble');
+            }, window);
+            queue.addTask('first task', function () {
+                this.alert('blabla');
+            }, window);
+            queue.run();
+        </code>
+    </pre>
+
     <div id="qunit"></div>
     <div id="qunit-fixture"></div>
     <script src="https://code.jquery.com/qunit/qunit-2.6.1.js"></script>
-    <script src="app/scripts/task-manager.js"></script>
-    <script src="test/unit/specs/test.task-manager.js"></script>
+    <script src="src/task-manager.js"></script>
+    <script src="test/test.task-manager.js"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 # training-implement-task-manager
 
-> ♨️ Exercise through which you learn how to write code by passing unit tests.
+♨️ Exercise through which you learn how to write code by passing unit tests.
 
 ## What's going on?
 

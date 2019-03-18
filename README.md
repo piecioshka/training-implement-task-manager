@@ -21,7 +21,7 @@ Open the `index.html` file in the browser and __refresh__ after wrote some code.
 
 ### 3. **Implement** :construction:
 
-Open the `app/scripts/task-manager.js` file in the editor.<br/>
+Open the `src/task-manager.js` file in the editor.<br/>
 Write that code which cover each of test cases. 
 
 :warning: **You must cover all unit tests** :warning: 

@@ -49,34 +49,34 @@ QUnit.module('TaskManager', () => {
     });
 
     QUnit.module('API', (hooks) => {
-        let tasks = null;
+        let queue = null;
 
         hooks.beforeEach(() => {
-            tasks = new TaskManager();
+            queue = new TaskManager();
         });
 
-        QUnit.module('getList', () => {
+        QUnit.module('getTaskList', () => {
             QUnit.test('should be a function', (assert) => {
                 assert.strictEqual(
-                    typeof tasks.getList,
+                    typeof queue.getTaskList,
                     'function',
-                    'TaskManager.prototype.getList is not a function'
+                    'TaskManager.prototype.getTaskList is not a function'
                 );
             });
 
             QUnit.test('should return an array', (assert) => {
                 assert.strictEqual(
-                    toString(tasks.getList()),
+                    toString(queue.getTaskList()),
                     '[object Array]',
-                    'TaskManager.prototype.getList() returns not an array'
+                    'TaskManager.prototype.getTaskList() returns not an array'
                 );
             });
 
             QUnit.test('should return empty array', (assert) => {
                 assert.strictEqual(
-                    tasks.getList().length,
+                    queue.getTaskList().length,
                     0,
-                    'TaskManager.prototype.getList() returns not empty array'
+                    'TaskManager.prototype.getTaskList() returns not empty array'
                 );
             });
         });
@@ -84,15 +84,15 @@ QUnit.module('TaskManager', () => {
         QUnit.module('addTask', () => {
             QUnit.test('should be a function', (assert) => {
                 assert.strictEqual(
-                    typeof tasks.addTask,
+                    typeof queue.addTask,
                     'function',
                     'TaskManager.prototype.addTask is not a function'
                 );
             });
 
-            QUnit.test('should expected 3 arguments: name, callback, context', (assert) => {
+            QUnit.test('should expected 3 params: name, callback, context', (assert) => {
                 assert.strictEqual(
-                    tasks.addTask.length,
+                    queue.addTask.length,
                     3,
                     'Arity of TaskManager.prototype.addTask is not equals 3'
                 );
@@ -102,16 +102,26 @@ QUnit.module('TaskManager', () => {
         QUnit.module('run', () => {
             QUnit.test('should be a function', (assert) => {
                 assert.strictEqual(
-                    typeof tasks.run,
+                    typeof queue.run,
                     'function',
                     'TaskManager.prototype.run is not a function'
+                );
+            });
+        });
+
+        QUnit.module('clean', () => {
+            QUnit.test('should be a function', (assert) => {
+                assert.strictEqual(
+                    typeof queue.clean,
+                    'function',
+                    'TaskManager.prototype.clean is not a function'
                 );
             });
         });
     });
 
     QUnit.module('Behaviour', (hooks) => {
-        let tasks = null;
+        let queue = null;
         let fake = null;
 
         hooks.beforeEach(() => {
@@ -127,67 +137,80 @@ QUnit.module('TaskManager', () => {
                 }
             };
 
-            tasks = new TaskManager();
+            queue = new TaskManager();
         });
 
-        QUnit.test('the "addTask" method should append items to the list of tasks', (assert) => {
-            const queue = tasks.getList();
+        QUnit.test('the "clean" method should clean list of tasks', (assert) => {
+            assert.equal(queue.getTaskList().length, 0);
+            queue.addTask({});
+            assert.equal(queue.getTaskList().length, 1);
+            queue.clean();
+        });
+
+        QUnit.test('the "clean" method should not create a new array, it should only remove items from tasks', (assert) => {
+            const tasks = queue.getTaskList();
+            queue.clean();
+            assert.equal(tasks, queue.getTaskList());
+        });
+
+        QUnit.test('the "addTask" method should append items to the list of tasks (mutable)', (assert) => {
+            const tasks = queue.getTaskList();
             const mockName = 'example-name';
             const mockFunction = () => {
             };
             const mockContext = this;
 
             assert.strictEqual(
-                queue.length,
+                tasks.length,
                 0,
-                'TaskManager.prototype.getList() returns not empty array'
+                'TaskManager.prototype.getTaskList() returns not empty array'
             );
 
-            tasks.addTask(mockName, mockFunction, mockContext);
+            queue.addTask(mockName, mockFunction, mockContext);
 
             assert.strictEqual(
-                queue.length,
+                tasks.length,
                 1,
                 'After adding one task to the empty list, number of items should equal 1'
             );
 
             assert.strictEqual(
-                typeof queue[0].name,
+                typeof tasks[0].name,
                 'string',
                 'task has not string property called "name"'
             );
             assert.strictEqual(
-                queue[0].name,
+                tasks[0].name,
                 mockName,
                 'task has not property "name" equals first parameter of the TaskManager.prototype.addTask'
             );
 
             assert.strictEqual(
-                typeof queue[0].callback,
+                typeof tasks[0].callback,
                 'function',
                 'task has not function property called "callback"'
             );
             assert.strictEqual(
-                queue[0].callback,
+                tasks[0].callback,
                 mockFunction,
                 'task has not property "callback" equals second parameter of the TaskManager.prototype.addTask'
             );
 
             assert.strictEqual(
-                typeof queue[0].context,
+                typeof tasks[0].context,
                 'object',
                 'task has not function property called "context"'
             );
             assert.strictEqual(
-                queue[0].context,
+                tasks[0].context,
                 mockContext,
                 'task has not property "context" equals second parameter of the TaskManager.prototype.addTask'
             );
         });
 
         QUnit.test('the callback for the first task should be executed when the "run" function is called', (assert) => {
-            tasks.addTask('task 1', fake.bar.bind(assert));
-            tasks.run();
+            queue.addTask('task 1', fake.bar.bind(assert));
+            queue.run();
 
             assert.verifySteps(
                 [
@@ -197,12 +220,20 @@ QUnit.module('TaskManager', () => {
             );
         });
 
-        QUnit.test('each task item should have its callback executed via the "run" function', (assert) => {
-            tasks.addTask('task 2', fake.bar.bind(assert));
-            tasks.addTask('task 3', fake.baz.bind(assert));
-            tasks.addTask('task 4', fake.qux.bind(assert));
+        QUnit.test('the list of tasks should not be shared between Task Manager instances', (assert) => {
+            assert.equal(queue.getTaskList().length, 0);
+            const queue2 = new TaskManager();
+            queue.addTask('test', () => null);
+            assert.equal(queue.getTaskList().length, 1);
+            assert.equal(queue2.getTaskList().length, 0);
+        });
 
-            tasks.run();
+        QUnit.test('each task item should have its callback executed via the "run" function', (assert) => {
+            queue.addTask('task 2', fake.bar.bind(assert));
+            queue.addTask('task 3', fake.baz.bind(assert));
+            queue.addTask('task 4', fake.qux.bind(assert));
+
+            queue.run();
 
             assert.verifySteps([
                 'the function from the first task have been executed',
@@ -212,7 +243,7 @@ QUnit.module('TaskManager', () => {
         });
 
         QUnit.test('should run with the context that was passed', (assert) => {
-            tasks.addTask('task 5', function () {
+            queue.addTask('task 5', function () {
                 assert.strictEqual(
                     this,
                     fake,
@@ -220,7 +251,7 @@ QUnit.module('TaskManager', () => {
                 );
             }, fake);
 
-            tasks.run();
+            queue.run();
         });
     });
 });

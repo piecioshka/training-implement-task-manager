@@ -22,9 +22,9 @@ Open the `index.html` file in the browser and __refresh__ after wrote some code.
 ### 3. **Implement** :construction:
 
 Open the `src/task-manager.js` file in the editor.<br/>
-Write that code which cover each of test cases. 
+Write that code which cover each of test cases.
 
-:warning: **You must cover all unit tests** :warning: 
+:warning: **You must cover all unit tests** :warning:
 
 The mission is complete when **all unit tests are passing** :tada:
 

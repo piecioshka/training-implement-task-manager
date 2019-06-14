@@ -18,13 +18,20 @@
     <pre class="language-javascript">
         <code>
             const queue = new TaskManager();
+
             queue.addTask('first task', function () {
                 this.alert('bleble');
             }, window);
+
             queue.addTask('first task', function () {
                 this.alert('blabla');
             }, window);
-            queue.run();
+
+            queue.run(); // it calls all callbacks
+
+            queue.getTaskList(); // it return list of tasks
+
+            queue.clean(); // it remove all tasks
         </code>
     </pre>
 

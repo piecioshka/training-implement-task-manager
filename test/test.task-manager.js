@@ -140,19 +140,6 @@ QUnit.module('TaskManager', () => {
             queue = new TaskManager();
         });
 
-        QUnit.test('the "clean" method should clean list of tasks', (assert) => {
-            assert.equal(queue.getTaskList().length, 0);
-            queue.addTask({});
-            assert.equal(queue.getTaskList().length, 1);
-            queue.clean();
-        });
-
-        QUnit.test('the "clean" method should not create a new array, it should only remove items from tasks', (assert) => {
-            const tasks = queue.getTaskList();
-            queue.clean();
-            assert.equal(tasks, queue.getTaskList());
-        });
-
         QUnit.test('the "addTask" method should append items to the list of tasks (mutable)', (assert) => {
             const tasks = queue.getTaskList();
             const mockName = 'example-name';
@@ -174,39 +161,61 @@ QUnit.module('TaskManager', () => {
                 'After adding one task to the empty list, number of items should equal 1'
             );
 
+            const task = tasks[0];
+
             assert.strictEqual(
-                typeof tasks[0].name,
+                typeof task,
+                'object',
+                'task shuold be an object'
+            );
+
+            assert.strictEqual(
+                typeof task.name,
                 'string',
                 'task has not string property called "name"'
             );
             assert.strictEqual(
-                tasks[0].name,
+                task.name,
                 mockName,
                 'task has not property "name" equals first parameter of the TaskManager.prototype.addTask'
             );
 
             assert.strictEqual(
-                typeof tasks[0].callback,
+                typeof task.callback,
                 'function',
                 'task has not function property called "callback"'
             );
             assert.strictEqual(
-                tasks[0].callback,
+                task.callback,
                 mockFunction,
                 'task has not property "callback" equals second parameter of the TaskManager.prototype.addTask'
             );
 
             assert.strictEqual(
-                typeof tasks[0].context,
+                typeof task.context,
                 'object',
                 'task has not function property called "context"'
             );
             assert.strictEqual(
-                tasks[0].context,
+                task.context,
                 mockContext,
                 'task has not property "context" equals second parameter of the TaskManager.prototype.addTask'
             );
         });
+
+        QUnit.test('the "clean" method should clean list of tasks', (assert) => {
+            assert.equal(queue.getTaskList().length, 0);
+            queue.addTask({});
+            assert.equal(queue.getTaskList().length, 1);
+            queue.clean();
+        });
+
+        QUnit.test('the "clean" method should not create a new array, it should only remove items from tasks', (assert) => {
+            const tasks = queue.getTaskList();
+            queue.clean();
+            assert.equal(tasks, queue.getTaskList());
+        });
+
 
         QUnit.test('the callback for the first task should be executed when the "run" function is called', (assert) => {
             queue.addTask('task 1', fake.bar.bind(assert));

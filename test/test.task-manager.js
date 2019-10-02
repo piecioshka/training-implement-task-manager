@@ -30,22 +30,22 @@ QUnit.config.reorder = false;
 QUnit.module('TaskManager', () => {
     QUnit.module('General', () => {
         QUnit.test('should be defined in global scope', (assert) => {
-            assert.notEqual(typeof TaskManager, 'undefined', 'window.TaskManager in not defined');
+            assert.notEqual(typeof TaskManager, 'undefined', 'TaskManager in not defined');
         });
 
         QUnit.test('should be a class', (assert) => {
-            assert.strictEqual(typeof TaskManager, 'function', 'TaskManager is a function (each class is a function)');
+            assert.strictEqual(typeof TaskManager, 'function', 'TaskManager should be a function (each class is a function)');
 
             try {
                 new TaskManager();
-                assert.ok(true, 'TaskManager is a constructor');
+                assert.ok(true, 'TaskManager should be a constructor');
             } catch (e) {
-                assert.ok(false, 'TaskManager is a constructor (maybe is Arrow Function?)');
+                assert.ok(false, 'TaskManager should be a constructor (maybe is an Arrow Function?)');
             }
 
             const string = TaskManager.toString();
             const pattern = /^class/;
-            assert.ok(pattern.test(string), 'TaskManager is define with "class" keyword');
+            assert.ok(pattern.test(string), 'TaskManager should be define with "class" keyword');
         });
     });
 

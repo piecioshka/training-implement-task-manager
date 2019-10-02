@@ -9,9 +9,13 @@
         "email": "piecioshka@gmail.com",
         "url": "https://piecioshka.pl/"
     },
-    "scripts": {},
+    "scripts": {
+        "start": "http-server -c-1"
+    },
     "dependencies": {},
-    "devDependencies": {},
+    "devDependencies": {
+        "http-server": "^0.11.1"
+    },
     "repository": {
         "type": "git",
         "url": "git@github.com:piecioshka/training-implement-task-manager.git"

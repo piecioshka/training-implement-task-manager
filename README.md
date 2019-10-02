@@ -4,10 +4,10 @@
 
 ## What's going on?
 
-I've written some __unit tests__ to describe sample production code.<br/>
-Your mission is to **complete the implementation** by writing a code in `app/`.
+* I've written some __unit tests__ to describe sample production code in `test/`
+* Your mission is to **complete the implementation** by writing a code in `src/`
 
-## How to complete the task?
+## How to complete the training?
 
 ### 1. **Clone** :busts_in_silhouette:
 
@@ -21,12 +21,11 @@ Open the `index.html` file in the browser and __refresh__ after wrote some code.
 
 ### 3. **Implement** :construction:
 
-Open the `src/task-manager.js` file in the editor.<br/>
-Write that code which cover each of test cases.
+* Open the `src/task-manager.js` file in the editor
+* Write that code which cover each of test cases
+* The mission is complete when **all unit tests are passing** :tada:
 
 :warning: **You must cover all unit tests** :warning:
-
-The mission is complete when **all unit tests are passing** :tada:
 
 ## License
 

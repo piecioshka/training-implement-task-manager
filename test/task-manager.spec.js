@@ -30,22 +30,22 @@ QUnit.config.reorder = false;
 QUnit.module('TaskManager', () => {
     QUnit.module('General', () => {
         QUnit.test('should be defined in global scope', (assert) => {
-            assert.notEqual(typeof TaskManager, 'undefined', 'TaskManager in not defined');
+            assert.notEqual(typeof TaskManager, 'undefined', 'TaskManager in not defined. Task: please define a TaskManager in global context');
         });
 
         QUnit.test('should be a class', (assert) => {
-            assert.strictEqual(typeof TaskManager, 'function', 'TaskManager should be a function (each class is a function)');
+            assert.strictEqual(typeof TaskManager, 'function', 'TaskManager is not a function');
 
             try {
                 new TaskManager();
-                assert.ok(true, 'TaskManager should be a constructor');
+                assert.ok(true, 'TaskManager is not a constructor');
             } catch (e) {
-                assert.ok(false, 'TaskManager should be a constructor (maybe is an Arrow Function?)');
+                assert.ok(false, 'TaskManager is not a constructor (maybe is an Arrow Function?)');
             }
 
             const string = TaskManager.toString();
             const pattern = /^class/;
-            assert.ok(pattern.test(string), 'TaskManager should be define with "class" keyword');
+            assert.ok(pattern.test(string), 'TaskManager is not a class. Task: please define TaskManager with a "class" keyword');
         });
     });
 
@@ -58,11 +58,11 @@ QUnit.module('TaskManager', () => {
 
         QUnit.module('getTaskList', () => {
             QUnit.test('should be a function', (assert) => {
-                assert.strictEqual(typeof queue.getTaskList, 'function', 'TaskManager#getTaskList should be a function (method)');
+                assert.strictEqual(typeof queue.getTaskList, 'function', 'TaskManager#getTaskList is not a function. Task: please define it as a method');
             });
 
             QUnit.test('should return an array', (assert) => {
-                assert.strictEqual(toString(queue.getTaskList()), '[object Array]', 'TaskManager#getTaskList() returns not an array');
+                assert.strictEqual(toString(queue.getTaskList()), '[object Array]', 'TaskManager#getTaskList() returns not an array. Task: please return an array from getTaskList method');
             });
 
             QUnit.test('should return empty array', (assert) => {
@@ -73,34 +73,34 @@ QUnit.module('TaskManager', () => {
             QUnit.test('should always returns the same reference to the array', (assert) => {
                 const ins1 = queue.getTaskList();
                 const ins2 = queue.getTaskList();
-                assert.equal(ins1, ins2, 'TaskManager#getTaskList() should returns the same array (reference should be the same)');
+                assert.equal(ins1, ins2, 'TaskManager#getTaskList() not returns the same array (reference should be the same). Task: please extract array to a shared class property');
             });
         });
 
         QUnit.module('addTask', () => {
             QUnit.test('should be a function', (assert) => {
-                assert.strictEqual(typeof queue.addTask, 'function', 'TaskManager#addTask should be a function (method)');
+                assert.strictEqual(typeof queue.addTask, 'function', 'TaskManager#addTask is not a function. Task: please define it as a method');
             });
 
             QUnit.test('should expected 3 params: name, callback, context', (assert) => {
-                assert.strictEqual(queue.addTask.length, 3, 'Arity (means number of params) of TaskManager#addTask is not equals 3');
+                assert.strictEqual(queue.addTask.length, 3, 'Arity (means number of params) of TaskManager#addTask is not equals 3. Task: please define list of params: name, callback, context');
             });
 
             QUnit.test('should add task to list of tasks', (assert) => {
                 queue.addTask('foo', () => null, null);
-                assert.notEqual(queue.getTaskList().length, 0, 'TaskManager#addTask should add task (an object) to list of tasks (array)');
+                assert.notEqual(queue.getTaskList().length, 0, 'TaskManager#addTask not add a task (an object) to list of tasks (array)');
             });
         });
 
         QUnit.module('run', () => {
             QUnit.test('should be a function', (assert) => {
-                assert.strictEqual(typeof queue.run, 'function', 'TaskManager#run should be a function (method)');
+                assert.strictEqual(typeof queue.run, 'function', 'TaskManager#run is not a function. Task: please define it as a method');
             });
         });
 
         QUnit.module('clean', () => {
             QUnit.test('should be a function', (assert) => {
-                assert.strictEqual(typeof queue.clean, 'function', 'TaskManager#clean should be a function (method)');
+                assert.strictEqual(typeof queue.clean, 'function', 'TaskManager#clean is not a function. Task: please define it as a method');
             });
         });
     });
@@ -130,7 +130,7 @@ QUnit.module('TaskManager', () => {
             queue.clean();
             const list = queue.getTaskList();
             console.log(list.length);
-            assert.equal(list.length, 0, 'TaskManager#clean should remove all items from task list');
+            assert.equal(list.length, 0, 'TaskManager#clean not removed all items from the shared task list');
 
             const ins1 = queue.getTaskList();
             queue.clean();
@@ -173,7 +173,7 @@ QUnit.module('TaskManager', () => {
                 [
                     'the function from the first task have been executed'
                 ],
-                'TaskManager#run should execute all callback\'s in loop (eg. Array.prototype.forEach).'
+                'TaskManager#run not execute all callback\'s in loop (eg. Array.prototype.forEach).'
             );
         });
 

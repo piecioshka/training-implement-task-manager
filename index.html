@@ -20,11 +20,11 @@
             const queue = new TaskManager();
 
             queue.addTask('first task', function () {
-                this.alert('bleble');
+                this.alert('ble ble');
             }, window);
 
-            queue.addTask('first task', function () {
-                this.alert('blabla');
+            queue.addTask('second task', function () {
+                this.alert('bla bla');
             }, window);
 
             queue.run(); // it calls all callbacks

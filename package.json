@@ -10,7 +10,7 @@
         "url": "https://piecioshka.pl/"
     },
     "scripts": {
-        "start": "http-server -c-1"
+        "start": "http-server . -c-1"
     },
     "devDependencies": {
         "http-server": "^14.1.1"
